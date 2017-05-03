@@ -35,7 +35,7 @@ The following parameters are available to configure your virtual machine. You ca
 
 | Parameter        | Description                                                                                      | Default           |
 |------------------|--------------------------------------------------------------------------------------------------|-------------------|
-| vmname           | Name of your virtual machine.                                  	                              | eB3Kit            |
+| vmname           | Name of your virtual machine.                                  	                              | registryboxkit    |
 | bibboxbaseurl    | Base url of your BIBBOX installation. Needs to match 'bibboxbaseurl' parameter in 'environments\production\manisfests\config.pp'.                                                                       | eb3kit.bibbox.org |
 | cpus             | Number of CPU cores assigned to the virtual machine.                                             | admin@bibbox.org  |
 | memory           | Total amount of memory in MB (RAM) available to the virtual machine.                             | 8192              |
@@ -53,8 +53,8 @@ The following parameters are available to configure your BIBBOX. You can change 
 
 | Parameter     | Description                                                                                      | Default           |
 |---------------|--------------------------------------------------------------------------------------------------|-------------------|
-| bibboxkit     | Name of the BIBBOX kit, currently only eB3kit is available.                                  	   | eB3Kit            |
-| bibboxbaseurl | Base url of your BIBBOX installation. Needs to match 'bibboxbaseurl' parameter in 'Vagrantfile'. | eb3kit.bibbox.org |
+| bibboxkit     | Name of the BIBBOX kit, currently only registryboxkit and eB3kit are available.                  | registryboxkit    |
+| bibboxbaseurl | Base url of your BIBBOX installation. Needs to match 'bibboxbaseurl' parameter in 'Vagrantfile'. | registryboxkit.bibbox.org |
 | serveradmin   | Mail address of the administrator.                                                               | admin@bibbox.org  |
 | db_user       | User of the Liferay database.                                                                    | liferay           |
 | db_password   | Password of the Liferay database.                                                                | bibbox4ever	   |
@@ -66,7 +66,7 @@ The following parameters are available to configure your BIBBOX. You can change 
 
 If you're already familiar with the BIBBOX installation process and only need a little reminder, this guide is for you.
 
-1. Clone the Git repository, `git clone https://github.com/bibbox/kit-eb3kit.git your-vm-name`
+1. Clone the Git repository, `git clone https://github.com/bibbox/kit-registryboxkit.git your-vm-name`
 2. In terminal, navigate to the repository, `cd your-vm-name`
 3. Edit the VM and BIBBOX configuration as described above, `nano Vagrantfile` and `nano environments\production\manisfests\config.pp`
 4. Edit the puppet configuration as descibed above, **nano  environments/production/manifests/config.pp**
@@ -156,7 +156,7 @@ On Linux based systems you can edit this file with `nano Vagrantfile` and save i
 
 | Parameter        | Description                                                                                      | Default           |
 |------------------|--------------------------------------------------------------------------------------------------|-------------------|
-| vmname           | Name of your virtual machine.                                  	                              | eB3Kit            |
+| vmname           | Name of your virtual machine.                                  	                              | registryboxkit    |
 | bibboxbaseurl    | Base url of your BIBBOX installation. Needs to match 'bibboxbaseurl' parameter in 'environments\production\manisfests\config.pp'.                                                                       | eb3kit.bibbox.org |
 | cpus             | Number of CPU cores assigned to the virtual machine.                                             | admin@bibbox.org  |
 | memory           | Total amount of memory in MB (RAM) available to the virtual machine.                             | 8192              |
@@ -171,12 +171,12 @@ This is how it looks like in the file:
 
 ```
 # Name of the virtual machine
-# default: "eb3kit"
-vmname = "eb3kit"
+# default: "registryboxkit"
+vmname = "registryboxkit"
 
 # Base url the bibbox kit (should match puppet config file)
-# default: "eb3kit.bibbox.org"
-bibboxbaseurl = "eb3kit.bibbox.org"
+# default: "registryboxkit.bibbox.org"
+bibboxbaseurl = "registryboxkit.bibbox.org"
 
 # Number of assigned CPU cores
 # default: 4
@@ -213,8 +213,8 @@ On Linux based systems you can edit this file with `nano environments\production
 
 | Parameter     | Description                                                                                      | Default           |
 |---------------|--------------------------------------------------------------------------------------------------|-------------------|
-| bibboxkit     | Name of the BIBBOX kit, currently only eB3kit is available.                                  	   | eB3Kit            |
-| bibboxbaseurl | Base url of your BIBBOX installation. Needs to match 'bibboxbaseurl' parameter in 'Vagrantfile'. | eb3kit.bibbox.org |
+| bibboxkit     | Name of the BIBBOX kit, currently only registryboxkit and eB3kit are available.                  | registryboxkit    |
+| bibboxbaseurl | Base url of your BIBBOX installation. Needs to match 'bibboxbaseurl' parameter in 'Vagrantfile'. | registryboxkit.bibbox.org |
 | serveradmin   | Mail address of the administrator.                                                               | admin@bibbox.org  |
 | db_user       | User of the Liferay database.                                                                    | liferay           |
 | db_password   | Password of the Liferay database.                                                                | bibbox4ever	   |
@@ -224,8 +224,8 @@ This is how it looks like in the file:
 
 ```
 # General Kit Information
-bibboxkit		=> "eB3Kit",
-bibboxbaseurl	        => "eb3kit.bibbox.org",
+bibboxkit		=> "registryboxkit",
+bibboxbaseurl	=> "registryboxkit.bibbox.org",
 serveradmin		=> "admin@bibbox.org",
 
 # Database Information
@@ -274,21 +274,21 @@ To access your BIBBOX from the everywhere on the web, you need to map your host'
 4. Copy this proxy configuration into the file, change the ServerName, ServerALias and the IP:Port combinations with your domain, the IP of the host machine and the port you configured for your virtual machine. Then save with **Control + O** and **Enter**.
 
         <VirtualHost *:80>
-            ServerName eb3kit.bibbox.org        # Replace this with your domain
-            ServerAlias *.eb3kit.bibbox.org     # Replace this with your domain
+            ServerName registryboxkit.bibbox.org        # Replace this with your domain
+            ServerAlias *.registryboxkit.bibbox.org     # Replace this with your domain
 
             <Proxy *>
                 Order deny,allow
                 Allow from all
             </Proxy>
 
-            ErrorLog ${APACHE_LOG_DIR}/eb3kit.error.log
+            ErrorLog ${APACHE_LOG_DIR}/registryboxkit.error.log
 
             # Possible values include: debug, info, notice, warn, error, crit,
             # alert, emerg.
             LogLevel debug
 
-            CustomLog ${APACHE_LOG_DIR}/eb3kit.access.log combined
+            CustomLog ${APACHE_LOG_DIR}/registryboxkit.access.log combined
 
             ProxyRequests           Off
             ProxyPreserveHost On
